@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d10faf4d-2d1d-4a3e-b078-bd66923f6fe6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>bt_community.py</StartupFile>
+    <StartupFile>cci_forum_help.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,8 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="bt_community.py" />
     <Compile Include="cci_forum_help.py" />
+    <Compile Include="pivot_point.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
