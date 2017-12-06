@@ -17,13 +17,13 @@ DB_PATH = 'C:\Futures_quotes'   # path to local quotes database
 class PivotPointIndicator(bt.Indicator):
 
     lines =('r3', 'r2', 'r1', 'pp', 's1', 's2', 's3',)
-    params = dict(withopen=True)
+    params = dict(withopen=False)
     plotinfo = dict(subplot=False)
 
     def __init__(self):
-        h = self.data.high
-        l = self.data.low
-        c = self.data.close
+        h = self.data.high(-1)
+        l = self.data.low(-1)
+        c = self.data.close(-1)
 
         if not self.p.withopen:
             self.lines.pp = pp = (h + l + c) / 3.0
@@ -48,8 +48,8 @@ class MasterStrategy(bt.Strategy):
 
     def __init__(self):
 
-        self.pivots_weekly = PivotPointIndicator(self.datas[0])
-        self.pivots_monthly = PivotPointIndicator(self.datas[1])
+        self.pivots_weekly = PivotPointIndicator(self.datas[1])
+        self.pivots_monthly = PivotPointIndicator(self.datas[2])
 
     def log(self, txt, dt=None):
         dt = dt or self.datas[0].datetime.date(0)
@@ -57,11 +57,14 @@ class MasterStrategy(bt.Strategy):
 
     def next(self):
 
-        self.log('L1: {}, L2: {}, PP Reversals: weekly: {}, monthly: {}'.format(len(self.datas[0]), len(self.datas[1]),
-                                                                        self.pivots_weekly.l.pp[0], self.pivots_monthly.l.pp[0]))
-        #self.log('close: daily: {}, weekly: {}, monthly: {}'.format(self.datas[0].close[0], self.datas[1].close[0],
-        #                                                            self.datas[2].close[0]))
-
+        if True:
+            self.log('Daily - H: {}, L: {}, C: {}, Len D: {}'.format(
+                self.datas[0].high[0], self.datas[0].low[0], self.datas[0].close[0], len(self.datas[0])))
+            self.log('Weekly - H: {}, L: {}, C: {}, Len W: {}'.format(
+                self.datas[1].high[0], self.datas[1].low[0], self.datas[1].close[0], len(self.datas[1])))
+            self.log('Yearly - H: {}, L: {}, C: {}, Len Y: {}, PP: weekly: {}, monthly: {}'.format(
+                self.datas[2].high[0], self.datas[2].low[0], self.datas[2].close[0],
+                len(self.datas[2]), self.pivots_weekly.l.pp[0], self.pivots_monthly.l.pp[0]))
 
 if __name__ == '__main__':
 
@@ -80,7 +83,7 @@ if __name__ == '__main__':
         data = bt.feeds.GenericCSVData(dataname=datapath, 
 
             fromdate=dt.datetime(2017, 5, 28),
-            todate=dt.datetime(2017, 11, 3),
+            todate=dt.datetime(2017, 12, 3),
 
             nullvalue=0.0,
 
@@ -91,7 +94,7 @@ if __name__ == '__main__':
 
             plot=True, name=ticker)
 
-#        cerebro.adddata(data)
+        cerebro.adddata(data)
         cerebro.resampledata(data, timeframe=bt.TimeFrame.Weeks, compression=1)
         cerebro.resampledata(data, timeframe=bt.TimeFrame.Months, compression=1)
 

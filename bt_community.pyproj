@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d10faf4d-2d1d-4a3e-b078-bd66923f6fe6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>cci_forum_help.py</StartupFile>
+    <StartupFile>pivot_point.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
