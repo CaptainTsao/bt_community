@@ -22,9 +22,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="cci_forum_help.py" />
+    <Compile Include="data_issue.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pivot_point.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="pivot_point_1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="prices_daily.csv">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="prices_1hour.csv">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
