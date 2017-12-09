@@ -1,4 +1,18 @@
 import backtrader as bt
+import backtrader.feeds as btfeed
+import pdb
+
+class dataFeed(btfeed.GenericCSVData):
+    params = (
+        ('dtformat', '%Y%m%d %H:%M:%S'),
+        ('datetime', 0),
+        ('open', 1),
+        ('high', 2),
+        ('low', 3),
+        ('close', 4),
+        ('volume', -1),
+        ('openinterest', -1)
+    )
 
 class firstStrategy(bt.Strategy):
 
@@ -16,25 +30,7 @@ if __name__ == '__main__':
 
     # Create a Data Feed
 
-    data = bt.feeds.GenericCSVData(
-        dataname='prices_daily.csv',
-
-        nullvalue=0.0,
-
-#        dtformat=('%Y%m%d %H:%M:%S'),
-        dtformat=('%Y%m%d'),
-
-        datetime=0,
-        time=-1,
-        open=1,
-        high=2,
-        low=3,
-        close=5,
-        volume=-1,
-        openinterest=-1,
-#        timeframe=bt.TimeFrame.Minutes,
-#        compression=60
-        )
+    data = dataFeed(dataname='prices_1hour.csv', timeframe=bt.TimeFrame.Minutes, compression=60)
 
     # Add the Data Feed to Cerebro
     cerebro.adddata(data)
@@ -49,6 +45,7 @@ if __name__ == '__main__':
     cerebro.addsizer(bt.sizers.PercentSizer, percents=50)
 
     cerebro.run()
+
     # Print out the starting conditions
     print('Starting Portfolio Value: %.2f' % startcash)
 
