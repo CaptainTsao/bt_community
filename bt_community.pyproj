@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bokeh_plots\test_strategy.py" />
     <Compile Include="cci_forum_help.py" />
     <Compile Include="data_issue.py">
       <SubType>Code</SubType>
@@ -36,9 +37,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bokeh_plots\fut_specs.txt" />
+    <Content Include="bokeh_plots\trades.csv" />
     <Content Include="prices_1hour.csv">
       <SubType>Code</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bokeh_plots\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
