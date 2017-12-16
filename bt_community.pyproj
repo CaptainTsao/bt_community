@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bokeh_plots\plotwithbokeh.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="bokeh_plots\test_strategy.py" />
     <Compile Include="cci_forum_help.py" />
     <Compile Include="data_issue.py">

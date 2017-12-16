@@ -9,6 +9,7 @@ import argparse
 import logging
 
 import backtrader as bt
+import plotwithbokeh as pwb
 
 # set initial parameters
 INITIAL_CASH = 50000.0          # inital capital
@@ -128,6 +129,7 @@ class MasterStrategy(bt.Strategy):
 if __name__ == '__main__':
 
     print('backtrader, version %s' % bt.__version__)
+    print('plotwithbokeh, version %s' % pwb.__version__)
 
     startTime = time.time()
 
@@ -137,6 +139,7 @@ if __name__ == '__main__':
     # add analyzers
     cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='trades')
     cerebro.addanalyzer(bt.analyzers.DrawDown, _name='dd')
+    cerebro.addanalyzer(pwb.BokehPlot, _name='bp')
 
     # add data feeds and set comissions
     for index, contract in FUT_SPECS.iterrows():
@@ -213,7 +216,7 @@ if __name__ == '__main__':
     sec3 = ' win/loss, %0.2f, max loss streak, %d,' % (
             stats['max_loss_streak'], stats['avg_wl_rate'])
 
-    logger.log(lvl['RESULTS'], sec1 + sec2 + sec3)    
+    logger.log(lvl['RESULTS'], sec1 + sec2 + sec3)
 
     logger.log(lvl['RESULTS'], 'it took {0} second !'.format(time.time() - startTime))
 
