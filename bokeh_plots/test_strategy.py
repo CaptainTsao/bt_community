@@ -9,7 +9,7 @@ import argparse
 import logging
 
 import backtrader as bt
-import plotwithbokeh as pwb
+from plotwithbokeh import btBokehPlot
 
 # set initial parameters
 INITIAL_CASH = 50000.0          # inital capital
@@ -129,17 +129,11 @@ class MasterStrategy(bt.Strategy):
 if __name__ == '__main__':
 
     print('backtrader, version %s' % bt.__version__)
-    print('plotwithbokeh, version %s' % pwb.__version__)
 
     startTime = time.time()
 
     # initialize and run backtest engine
     cerebro = bt.Cerebro()
-
-    # add analyzers
-#    cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='trades')
-#    cerebro.addanalyzer(bt.analyzers.DrawDown, _name='dd')
-    cerebro.addanalyzer(pwb.BokehPlot, _name='bp')
 
     # add data feeds and set comissions
     for index, contract in FUT_SPECS.iterrows():
@@ -178,49 +172,8 @@ if __name__ == '__main__':
     cerebro.broker.set_cash(INITIAL_CASH)
     strats = cerebro.run()
 
-    ## gather trading system statistics
-    #cum_pnl = cerebro.broker.getvalue() - INITIAL_CASH
-    #stats = {}
-
-    ## drawdown statistics
-    #dds = strats[0].analyzers.dd.get_analysis()
-    #stats['maxdd'] = dds['max']['moneydown']
-    #stats['maxdd%'] = dds['max']['drawdown']
-    #stats['maxdd_len'] = dds['max']['len']
-
-    ## trades statistics
-    #trades = strats[0].analyzers.trades.get_analysis()
-    #stats['win_rate'] = stats['avg_trade'] = 0.0
-    #stats['avg_win'] = stats['avg_loss'] = stats['avg_wl_rate'] = 0.0
-    #stats['trades'] = stats['max_loss_streak'] = 0
-    #if trades['total']['total'] != 0 and trades['total']['total'] != trades['total']['open']:
-    #    stats['trades'] = trades['total']['total']
-    #    stats['win_rate'] = trades['won']['total'] / trades['total']['total'] * 100
-    #    stats['avg_trade'] = trades['pnl']['net']['average']
-    #    stats['avg_win'] = trades['won']['pnl']['average']
-    #    stats['avg_loss'] = trades['lost']['pnl']['average']
-    #    stats['avg_wl_rate'] = 1000.0
-    #    if stats['avg_loss'] != 0.0:
-    #        stats['avg_wl_rate'] = abs(stats['avg_win'] / stats['avg_loss'])
-    #    stats['max_loss_streak'] = trades['streak']['lost']['longest']
-
-    #stats['calmar'] = cum_pnl / stats['maxdd'] if stats['maxdd'] != 0.0 else 10000.0
-
-    #sec1 = 'return, %0.2f, max DD, %0.2f, calmar, %0.2f, dd max len, %d,' % (
-    #        cum_pnl, stats['maxdd'], stats['calmar'], stats['maxdd_len'])
-
-    #sec2 = ' trades, %d, win%%, %0.1f, avg, %d, win, %d, loss, %d,' % (
-    #        stats['trades'], stats['win_rate'], stats['avg_trade'], stats['avg_win'],
-    #        stats['avg_loss'])
-
-    #sec3 = ' win/loss, %0.2f, max loss streak, %d,' % (
-    #        stats['max_loss_streak'], stats['avg_wl_rate'])
-
-    #logger.log(lvl['RESULTS'], sec1 + sec2 + sec3)
-
-    #logger.log(lvl['RESULTS'], 'it took {0} second !'.format(time.time() - startTime))
-
-    #cerebro.plot(style='candle', numfigs=1,
-    #             barup = 'black', bardown = 'black',
-    #             barupfill = False, bardownfill = True,
-    #             volup = 'green', voldown = 'red', voltrans = 50.0, voloverlay = False)
+    BokehPlotter = btBokehPlot()
+    cerebro.plot(plotter=BokehPlotter, style='candle', numfigs=1,
+                 barup = 'black', bardown = 'black',
+                 barupfill = False, bardownfill = True,
+                 volup = 'green', voldown = 'red', voltrans = 50.0, voloverlay = False)
