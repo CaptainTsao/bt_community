@@ -1,5 +1,5 @@
 ,quandl_name,name,margin,mult,comm,comment,exchange,show or not
-0,CLZ2017,CLZ7,2250.0,1000.0,2.36,CL (Crude Oil) Dec 17,CME,0
-1,HGZ2017,HGZ7,3150.0,25000.0,2.36,HG (Copper) Dec 17,CME,0
-2,PAZ2017,PAZ7,14200.0,100.0,2.36,PA (Palladium) Dec 17,CME,0
-3,RBX2017,RBX7,3750.0,42000.0,2.36,RB (Gazoline) Nov 17,CME,0
+0,CLZ2017,CLZ7,2250.0,1000.0,2.36,CL (Crude Oil) Dec 17,CME,1
+1,HGZ2017,HGZ7,3150.0,25000.0,2.36,HG (Copper) Dec 17,CME,1
+2,PAZ2017,PAZ7,14200.0,100.0,2.36,PA (Palladium) Dec 17,CME,1
+3,RBX2017,RBX7,3750.0,42000.0,2.36,RB (Gazoline) Nov 17,CME,1
