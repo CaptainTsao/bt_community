@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d10faf4d-2d1d-4a3e-b078-bd66923f6fe6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>pivot_point.py</StartupFile>
+    <StartupFile>last_close_forum_help.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="last_close_forum_help.py" />
     <Compile Include="cci_forum_help.py" />
     <Compile Include="data_issue.py">
       <SubType>Code</SubType>
