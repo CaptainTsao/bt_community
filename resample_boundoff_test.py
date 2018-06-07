@@ -18,14 +18,27 @@ DB_PATH = 'C:\Futures_quotes'   # path to local quotes database
 class MasterStrategy(bt.Strategy):
 
     def log(self, txt, dt=None):
+        
         dt = dt or self.datas[0].datetime.date(0)
         print('%s, %s' % (dt.isoformat(), txt))
 
-    def next(self):
-        self.log('Daily OHLC: %0.2f, %0.2f, %0.2f, %0.2f; Weekly OHLC: %.2f, %0.2f, %0.2f, %0.2f'
+    def start(self):
+        
+        self.counter = 0
+
+    def prenext(self):
+        
+        self.counter += 1
+        self.log('OHLC: %0.2f, %0.2f, %0.2f, %0.2f, Len0 %d, Len1 %d, Counter %d'
                  % (self.datas[0].open[0], self.datas[0].high[0], self.datas[0].low[0],
-                    self.datas[0].close[0], self.datas[1].open[0], self.datas[1].high[0],
-                    self.datas[1].low[0], self.datas[1].close[0]))
+                    self.datas[0].close[0], len(self), len(self.datas[0]), self.counter))
+
+    def next(self):
+        
+        self.counter += 1
+        self.log('OHLC: %0.2f, %0.2f, %0.2f, %0.2f, Len0 %d, Len1 %d, Counter %d'
+                 % (self.datas[0].open[0], self.datas[0].high[0], self.datas[0].low[0],
+                    self.datas[0].close[0], len(self), len(self.datas[0]), self.counter))
 
 
 if __name__ == '__main__':
@@ -58,9 +71,9 @@ if __name__ == '__main__':
             
             timeframe=bt.TimeFrame.Days, compression=1)
 
-        cerebro.adddata(data)
+#        cerebro.adddata(data)
 
-        cerebro.resampledata(data, timeframe=bt.TimeFrame.Weeks, boundoff=1)
+        cerebro.replaydata(data, timeframe=bt.TimeFrame.Days, compression=5)
 
 
     # add strategy
